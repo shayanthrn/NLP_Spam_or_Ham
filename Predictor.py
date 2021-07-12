@@ -2,7 +2,7 @@ import re
 import string
 
 class NLP:
-    
+
     def PreProcessing_Text(self,dataset):
         for i,text in enumerate(dataset):
             dataset[i] = text.lower() #lower characters
@@ -19,8 +19,25 @@ class NLP:
                     dictionary[word] +=1
                 else:
                     dictionary[word] = 1
-        print(dictionary)
-            
+        return dictionary
+    
+    def CreateCoupleDictionary(self,dataset):
+        dictionary = {}
+        for sentence in dataset:
+            words = sentence.split(' ')
+            for i in range(len(words)):
+                if(i!= len(words)-1 and i != 0):
+                    key = words[i]+"_"+words[i+1]
+                elif(i == 0):
+                    key = "<s>" + "_" + words[i]
+                else:
+                    key = words[i] + "_" +"</s>"
+                if(key in dictionary.keys()):
+                    dictionary[key] +=1
+                else:
+                    dictionary[key] = 1
+        return dictionary
+                  
 
 
 
@@ -35,4 +52,5 @@ if __name__ == "__main__":
     a = ["Asqar,,xv *&WDFS sdfsdfk23424   pxopokv    234 pxopokv ,, asfpoksf \t \t \t \n asldkfmsldf\n","asdfzxcxvcxv234234CCCCCCCSFSDFffv&***x\t\t\n"]
     nlp.PreProcessing_Text(a)
     nlp.CreateDictionary(a)
+    print(nlp.CreateCoupleDictionary(a))
     print(a)
