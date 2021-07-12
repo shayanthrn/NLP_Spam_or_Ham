@@ -9,6 +9,16 @@ class NLP:
             dataset[i] = re.sub(r'\d+', '', dataset[i])  #remove numbers
             dataset[i] = dataset[i].translate(str.maketrans("","", string.punctuation)) #remove punctuations
             dataset[i] = " ".join(dataset[i].split()) #remove white spaces and duplicated space
+    
+    def RemoveLeastandMostFrequentWords(self,dictionary):
+        for key in dictionary:
+            if(dictionary[key] <= 2):
+                dictionary.pop(key)
+        mylist= sorted(dictionary,key =dictionary.get , reverse = True)
+        if(len(mylist)>10):
+            for key in mylist[:10]:
+                dictionary.pop(key)
+
 
     def CreateDictionary(self,dataset):
         dictionary = {}
