@@ -76,9 +76,9 @@ class NLP:
     
     def CalculateProbabilty_lang(self,sentence,dictionary,dictionary_c,P_lang):
         Epsilon=0.01
-        Lambda1=0.1
-        Lambda2=0.2
-        Lambda3=0.9
+        Lambda1=0
+        Lambda2=1
+        Lambda3=0
         sentence = [sentence]
         self.PreProcessing_Text(sentence)
         sentence = sentence[0]
@@ -132,4 +132,13 @@ if __name__ == "__main__":
         if nlp.CalculateProbabilty_lang(sentence, pdictionary, pdictionary_c, 0.5)<nlp.CalculateProbabilty_lang(sentence, ndictionary, ndictionary_c, 0.5):
             counter += 1
     print("Accuracy for negatives:",counter/len(test_negatives))
+
+    while(True):
+        sentence = input("")
+        if(sentence=="!q"):
+            break
+        if nlp.CalculateProbabilty_lang(sentence, pdictionary, pdictionary_c, 0.5)>nlp.CalculateProbabilty_lang(sentence, ndictionary, ndictionary_c, 0.5):
+            print("not filter this")
+        else:
+            print("filter this")
         
